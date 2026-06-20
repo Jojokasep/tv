@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TV Indo</title>
+    <!-- Lock Portrait untuk HP -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- Untuk Android Chrome (PWA hints) -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- FORCE LOADING SCREEN --- */
+        /* Ini penting: Pastikan loading muncul SEBELUM apapun */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            z-index: 99999; /* Z-index sangat tinggi */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .logo-area {
+            position: relative;
+            padding: 20px;
+        }
+
+        .main-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            line-height: 0.9;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            animation: glitchAnim 1.5s infinite alternate;
+        }
+        
+        /* Efek Glitch sederhana */
+        @keyframes glitchAnim {
+            0% { transform: skew(0deg); opacity: 1; filter: hue-rotate(0deg); }
+            20% { transform: skew(-10deg); text-shadow: 2px 0 red, -2px 0 cyan; }
+            40% { transform: skew(10deg); text-shadow: -2px 0 red, 2px 0 cyan; }
+            60% { transform: skew(0deg); text-shadow: none; }
+            100% { transform: skew(0deg); opacity: 1; }
+        }
+
+        .spinner-loader {
+            margin-top: 40px;
+            width: 30px; height: 30px;
+            border: 3px solid #333;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+
+        /* --- APLIKASI UTAMA (MODE APP) --- */
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #050505;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Tinggi penuh viewport */
+            width: 100vw;
+            overflow: hidden; /* LARANGAN SCROLL */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header App */
+        .app-header {
+            padding: 15px;
+            text-align: center;
+            background: rgba(20,20,20,0.95);
+            border-bottom: 1px solid #222;
+            flex-shrink: 0; /* Biar header tidak mengecil */
+            z-index: 10;
+        }
+        .app-header h1 {
+            margin: 0;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 700;
+        }
+
+        /* Konten Grid (Flex Grow) */
+        .app-content {
+            flex: 1; /* Isi semua sisa ruang */
+            padding: 15px;
+            display: flex;
+            align-items: center; /* Pusatkan vertikal */
+            justify-content: center;
+            overflow-y: auto; /* Hanya kalau darurat */
+        }
+
+        /* Grid Channel (Optimasi HP) */
+        .channel-grid {
+            display: grid;
+            /* 2 Kolom di HP kecil, 3 kolom di HP besar/tablet kecil */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px;
+            width: 100%;
+            max-width: 500px; /* Batas lebar biar tidak terlalu melebar di tablet */
+        }
+
+        @media (min-width: 500px) {
+            .channel-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        }
+
+        /* Kartu Channel Style */
+        .ch-card {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #222;
+            background: #111;
+            transition: all 0.15s ease;
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ch-card:active {
+            transform: scale(0.95);
+            border-color: #fff;
+        }
+
+        /* Warna Tema */
+        .card-rcti { background: linear-gradient(135deg, #200008, #350512); }
+        .txt-rcti { color: #ff4d5a; text-shadow: 0 0 10px rgba(255,77,90,0.6); }
+
+        .card-gtv { background: linear-gradient(135deg, #001a22, #052e38); }
+        .txt-gtv { color: #48d1ee; text-shadow: 0 0 10px rgba(72,209,238,0.6); }
+
+        .card-inews { background: linear-gradient(135deg, #221a00, #3d3005); }
+        .txt-inews { color: #fbbf24; text-shadow: 0 0 10px rgba(251,191,36,0.6); }
+
+        .card-mnctv { background: linear-gradient(135deg, #220005, #400a10); }
+        .txt-mnctv { color: #f87171; text-shadow: 0 0 10px rgba(248,113,113,0.6); }
+
+        .card-trans7 { background: linear-gradient(135deg, #00202a, #053d4e); }
+        .txt-trans7 { color: #22d3ee; text-shadow: 0 0 10px rgba(34,211,238,0.6); }
+
+        .card-transtv { background: linear-gradient(135deg, #1a0a24, #301a45); }
+        .txt-transtv { color: #a78bfa; text-shadow: 0 0 10px rgba(167,139,250,0.6); }
+
+        .card-sctv { background: linear-gradient(135deg, #240029, #450d4d); }
+        .txt-sctv { color: #e879f9; text-shadow: 0 0 10px rgba(232,121,249,0.6); }
+
+        .ch-txt {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        /* Icon Play Overlay */
+        .play-ov {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+        }
+        .ch-card:active .play-ov { opacity: 1; }
+        
+        .icon-p {
+            width: 24px; height: 24px;
+            background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            padding-left: 2px;
+        }
+
+        /* Toast Notif */
+        #toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: white; color: black; padding: 8px 20px;
+            border-radius: 20px; font-size: 13px; font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            opacity: 0; transition: opacity 0.3s; z-index: 100;
+            pointer-events: none; white-space: nowrap;
+        }
+        #toast.show { opacity: 1; }
+
+    </style>
+</head>
+<body>
+
+    <!-- SPLASH SCREEN (WAJIB MUNCUL) -->
+    <div id="splash-screen">
+        <div class="logo-area">
+            <div class="main-title">TV<br>INDONESIA</div>
+        </div>
+        <div class="spinner-loader"></div>
+    </div>
+
+    <!-- INTERFACE APLIKASI -->
+    <header class="app-header">
+        <h1>Live Streaming</h1>
+    </header>
+
+    <div class="app-content">
+        <div class="channel-grid">
+
+            <!-- RCTI -->
+            <div class="ch-card card-rcti" onclick="openCh('rcti')">
+                <span class="ch-txt txt-rcti">RCTI</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+            <!-- GTV -->
+            <div class="ch-card card-gtv" onclick="openCh('gtv')">
+                <span class="ch-txt txt-gtv">GTV</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+            <!-- INEWS -->
+            <div class="ch-card card-inews" onclick="openCh('inews')">
+                <span class="ch-txt txt-inews">iNews</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+            <!-- MNCTV -->
+            <div class="ch-card card-mnctv" onclick="openCh('mnctv')">
+                <span class="ch-txt txt-mnctv">MNCTV</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+            <!-- TRANS7 -->
+            <div class="ch-card card-trans7" onclick="openCh('trans7')">
+                <span class="ch-txt txt-trans7">TRANS 7</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+            <!-- TRANSTV -->
+            <div class="ch-card card-transtv" onclick="openCh('transtv')">
+                <span class="ch-txt txt-transtv">TRANS TV</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+            <!-- SCTV -->
+            <div class="ch-card card-sctv" onclick="openCh('sctv')">
+                <span class="ch-txt txt-sctv">SCTV</span>
+                <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toast">Membuka...</div>
+
+    <script>
+        // --- LOGIKA LOADING YANG DIPERBAIKI ---
+        // Kita pakai setTimeout langsung di bawah HTML untuk memastikan jalan
+        const splash = document.getElementById('splash-screen');
+        const bodyContent = document.body;
+
+        function hideSplash() {
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none'; // Hapus total dari pandangan
+            }, 500);
+        }
+
+        // Jalankan loading selama 2 detik
+        window.addEventListener('load', () => {
+            setTimeout(hideSplash, 2000); // Tahan 2 detik
+        });
+
+        // Fallback: Jika load event sudah terjadi sebelum listener jalan
+        if (document.readyState === 'complete') {
+            setTimeout(hideSplash, 2000);
+        }
+
+
+        // --- DATA LINK ---
+        const links = {
+            rcti: 'https://sindikasi.inews.id/embed/video/YWdlbnQ9ZGVza3RvcCZ1cmw9aHR0cHMlM0ElMkYlMkZlbWJlZC5yY3RpcGx1cy5jb20lMkZsaXZlJTJGcmN0aSUyRmluZXdzaWQmaGVpZ2h0PTEwMCUyNSZ3aWR0aD0xMDAlMjU=',
+            gtv: 'https://sindikasi.inews.id/embed/video/YWdlbnQ9ZGVza3RvcCZ1cmw9aHR0cHMlM0ElMkYlMkZlbWJlZC5yY3RpcGx1cy5jb20lMkZsaXZlJTJGZ3R2JTJGaW5ld3NpZCZoZWlnaHQ9MTAwJTI1JndpZHRoPTEwMCUyNQ==',
+            inews: 'https://sindikasi.inews.id/embed/video/YWdlbnQ9ZGVza3RvcCZ1cmw9aHR0cHMlM0ElMkYlMkZlbWJlZC5yY3RpcGx1cy5jb20lMkZsaXZlJTJGaW5ld3MlMkZpbmV3c2lkJmhlaWdodD0xMDAlMjUmd2lkdGg9MTAwJTI1',
+            mnctv: 'https://sindikasi.inews.id/embed/video/YWdlbnQ9ZGVza3RvcCZ1cmw9aHR0cHMlM0ElMkYlMkZlbWJlZC5yY3RpcGx1cy5jb20lMkZsaXZlJTJGbW5jdHYlMkZpbmV3c2lkJmhlaWdodD0xMDAlMjUmd2lkdGg9MTAwJTI1',
+            trans7: 'https://20.detik.com/watch/livestreaming-trans7',
+            transtv: 'https://20.detik.com/watch/livestreaming-transtv',
+            sctv: 'https://www.vidio.com/live/204-sctv-tv-stream/embed?autoplay=true&player_only=true&live_chat=false&mute=false&'
+        };
+
+        const toast = document.getElementById('toast');
+
+        function openCh(id) {
+            toast.textContent = "Membuka " + id.toUpperCase() + "...";
+            toast.classList.add('show');
+
+            // Buka link setelah 300ms
+            setTimeout(() => {
+                window.open(links[id], '_blank');
+                // Sembunyikan toast setelah beberapa saat
+                setTimeout(() => toast.classList.remove('show'), 1500);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
