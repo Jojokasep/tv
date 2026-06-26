@@ -4,22 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TV Indo</title>
-    <!-- Lock Portrait untuk HP -->
-    <meta name="screen-orientation" content="portrait">
-    <!-- Untuk Android Chrome (PWA hints) -->
+    
+    <!-- META WAJIB PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050505">
+
+    <!-- MANIFEST PWA (Menggunakan Base64 agar bisa 1 file) -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVFYgSW5kb25lc2lhIiwic2hvcnRfbmFtZSI6IlRWIEluZG8iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzA1MDUwNSIsInRoZW1lX2NvbG9yIjoiIzA1MDUwNSIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUIyYVdWM1FtOTRQU0l3SURBZ01USTRJREV5T0NJZ2VHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0OFkybHlZMnhsSUdONFBTSTFNREF0TUNJZ1ptbHNiRDBpZFhKbFkzUWdkMmxrZEdnOUlqRXdJaUJvWldsbmFIUTlJakV3SWlCeWVEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUdSbFptVnliMjVuSUM4K1BISmxZM1FnZDJsa2RHZzlJalV4TWlJZ2VHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0OFkybHlZMnhsSUdONFBTSTVNREF0TVNJZ1ptbHNiRDBpZFhKbFkzUWdkMmxrZEdnOUlqRXdJaUJvWldsbmFIUTlJakV3SWlCeWVEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUdSbFptVnliMjVuSUM4K1BISmxZM1FnZDJsa2RHZzlJalV4TWlJZ1VISnZiM1JsY25SNVBTSTFNQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUNZZ0x6NEtJQ0FnSUNBZ0lDQWdJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSXhNREF0TUNJZ0lDQWdJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSXhOaUJrYVdkdWJXVnVkRDBpUVhKbFl5SWdabWxzYkQwaWVHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0OFkybHlZMnhsSUdONFBTSXlOVFV4TWlJZ1VISnZiM1JsY25SNVBTSXhNQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUNZZ0x6NEtJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSXdOaUJrYVdkdWJXVnVkRDBpUVhKbFl5SWdabWxzYkQwaWVHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpJd01EQXZjM1puSWo0OFkybHlZMnhsSUdONFBTSXdOQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUNZZ0x6NEtJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSTJOaUJrYVdkdVltRnlhVzVuSUM4K1BISmxZM1FnZDJsa2RHZzlJalV4TWlJZ1VISnZiM1JsY25SNVBTSXlNQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUNZZ0x6NEtJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSTFNQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUNZZ0x6NEtJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSTFOQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0FnSUNZZ0x6NEtJQ0FnUEhKbFl6SWdNVGt5SWo0OFkybHlZMnhsSUdONFBTSTFNQ0lnWm1sc2JEMGlNaUlnWm1sc2JEMGlkWEpsWTNRZ0x6NEtJQ0E9PSIsInR5cGUiOiJpbWFnZS9zdmcreG1sIiwic2l6ZXMiOiIxOTJ4MTkyIiwicHVycG9zZSI6ImFueSBtYXNrYWJsZSJ9XX0=">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
     <style>
         /* --- FORCE LOADING SCREEN --- */
-        /* Ini penting: Pastikan loading muncul SEBELUM apapun */
         #splash-screen {
             position: fixed;
             inset: 0;
             background: #000000;
-            z-index: 99999; /* Z-index sangat tinggi */
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,10 +30,7 @@
             transition: opacity 0.5s ease-out;
         }
 
-        .logo-area {
-            position: relative;
-            padding: 20px;
-        }
+        .logo-area { position: relative; padding: 20px; }
 
         .main-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -44,7 +44,6 @@
             animation: glitchAnim 1.5s infinite alternate;
         }
         
-        /* Efek Glitch sederhana */
         @keyframes glitchAnim {
             0% { transform: skew(0deg); opacity: 1; filter: hue-rotate(0deg); }
             20% { transform: skew(-10deg); text-shadow: 2px 0 red, -2px 0 cyan; }
@@ -63,30 +62,32 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-
-        /* --- APLIKASI UTAMA (MODE APP) --- */
+        /* --- APLIKASI UTAMA --- */
         body {
             font-family: 'Space Grotesk', sans-serif;
             background-color: #050505;
             color: white;
             margin: 0;
             padding: 0;
-            height: 100vh; /* Tinggi penuh viewport */
+            height: 100vh;
             width: 100vw;
-            overflow: hidden; /* LARANGAN SCROLL */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* Header App */
         .app-header {
             padding: 15px;
             text-align: center;
             background: rgba(20,20,20,0.95);
             border-bottom: 1px solid #222;
-            flex-shrink: 0; /* Biar header tidak mengecil */
+            flex-shrink: 0;
             z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+        
         .app-header h1 {
             margin: 0;
             font-size: 11px;
@@ -96,31 +97,27 @@
             font-weight: 700;
         }
 
-        /* Konten Grid (Flex Grow) */
         .app-content {
-            flex: 1; /* Isi semua sisa ruang */
+            flex: 1;
             padding: 15px;
             display: flex;
-            align-items: center; /* Pusatkan vertikal */
+            align-items: center;
             justify-content: center;
-            overflow-y: auto; /* Hanya kalau darurat */
+            overflow-y: auto;
         }
 
-        /* Grid Channel (Optimasi HP) */
         .channel-grid {
             display: grid;
-            /* 2 Kolom di HP kecil, 3 kolom di HP besar/tablet kecil */
             grid-template-columns: repeat(2, 1fr); 
             gap: 12px;
             width: 100%;
-            max-width: 500px; /* Batas lebar biar tidak terlalu melebar di tablet */
+            max-width: 500px;
         }
 
         @media (min-width: 500px) {
             .channel-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
         }
 
-        /* Kartu Channel Style */
         .ch-card {
             position: relative;
             aspect-ratio: 16/9;
@@ -142,7 +139,6 @@
             border-color: #fff;
         }
 
-        /* Warna Tema */
         .card-rcti { background: linear-gradient(135deg, #200008, #350512); }
         .txt-rcti { color: #ff4d5a; text-shadow: 0 0 10px rgba(255,77,90,0.6); }
 
@@ -172,7 +168,6 @@
             pointer-events: none;
         }
 
-        /* Icon Play Overlay */
         .play-ov {
             position: absolute;
             inset: 0;
@@ -191,7 +186,36 @@
             padding-left: 2px;
         }
 
-        /* Toast Notif */
+        /* --- TOMBOL INSTALL PWA --- */
+        #install-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255,255,255,0.25);
+            display: none; /* Tersembunyi default */
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.1s;
+        }
+        #install-btn:active { transform: translateX(-50%) scale(0.95); }
+        
+        @keyframes popUp {
+            0% { transform: translateX(-50%) scale(0.5); opacity: 0; }
+            100% { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+
         #toast {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             background: white; color: black; padding: 8px 20px;
@@ -206,7 +230,7 @@
 </head>
 <body>
 
-    <!-- SPLASH SCREEN (WAJIB MUNCUL) -->
+    <!-- SPLASH SCREEN -->
     <div id="splash-screen">
         <div class="logo-area">
             <div class="main-title">TV<br>INDONESIA</div>
@@ -221,79 +245,101 @@
 
     <div class="app-content">
         <div class="channel-grid">
-
-            <!-- RCTI -->
             <div class="ch-card card-rcti" onclick="openCh('rcti')">
                 <span class="ch-txt txt-rcti">RCTI</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
-            <!-- GTV -->
             <div class="ch-card card-gtv" onclick="openCh('gtv')">
                 <span class="ch-txt txt-gtv">GTV</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
-            <!-- INEWS -->
             <div class="ch-card card-inews" onclick="openCh('inews')">
                 <span class="ch-txt txt-inews">iNews</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
-            <!-- MNCTV -->
             <div class="ch-card card-mnctv" onclick="openCh('mnctv')">
                 <span class="ch-txt txt-mnctv">MNCTV</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
-            <!-- TRANS7 -->
             <div class="ch-card card-trans7" onclick="openCh('trans7')">
                 <span class="ch-txt txt-trans7">TRANS 7</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
-            <!-- TRANSTV -->
             <div class="ch-card card-transtv" onclick="openCh('transtv')">
                 <span class="ch-txt txt-transtv">TRANS TV</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
-            <!-- SCTV -->
             <div class="ch-card card-sctv" onclick="openCh('sctv')">
                 <span class="ch-txt txt-sctv">SCTV</span>
                 <div class="play-ov"><div class="icon-p"><svg width="10" height="10" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg></div></div>
             </div>
-
         </div>
     </div>
+
+    <!-- TOMBOL UNDUH/INSTALL -->
+    <button id="install-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Install Aplikasi
+    </button>
 
     <div id="toast">Membuka...</div>
 
     <script>
-        // --- LOGIKA LOADING YANG DIPERBAIKI ---
-        // Kita pakai setTimeout langsung di bawah HTML untuk memastikan jalan
+        // --- LOGIKA SPLASH SCREEN ---
         const splash = document.getElementById('splash-screen');
-        const bodyContent = document.body;
 
         function hideSplash() {
             splash.style.opacity = '0';
-            setTimeout(() => {
-                splash.style.display = 'none'; // Hapus total dari pandangan
-            }, 500);
+            setTimeout(() => { splash.style.display = 'none'; }, 500);
         }
 
-        // Jalankan loading selama 2 detik
-        window.addEventListener('load', () => {
-            setTimeout(hideSplash, 2000); // Tahan 2 detik
+        window.addEventListener('load', () => { setTimeout(hideSplash, 2000); });
+        if (document.readyState === 'complete') { setTimeout(hideSplash, 2000); }
+
+
+        // --- LOGIKA PWA / TOMBOL INSTALL ---
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Cegah popup bawaan Chrome muncul
+            e.preventDefault();
+            // Simpan event agar bisa dipicu nanti oleh tombol kita
+            deferredPrompt = e;
+            // Tampilkan tombol install kita
+            const installBtn = document.getElementById('install-btn');
+            installBtn.style.display = 'flex';
         });
 
-        // Fallback: Jika load event sudah terjadi sebelum listener jalan
-        if (document.readyState === 'complete') {
-            setTimeout(hideSplash, 2000);
-        }
+        document.getElementById('install-btn').addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            
+            // Tampilkan prompt install bawaan browser
+            deferredPrompt.prompt();
+            
+            // Cek apa user menekan "Install" atau "Batal"
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('User menginstall aplikasi');
+                // Sembunyikan tombol setelah berhasil install
+                document.getElementById('install-btn').style.display = 'none';
+            }
+            
+            // Kosongkan variabel karena prompt hanya bisa dipakai sekali
+            deferredPrompt = null;
+        });
+
+        // Sembunyikan tombol jika aplikasi sudah ter-install sebelumnya
+        window.addEventListener('appinstalled', () => {
+            document.getElementById('install-btn').style.display = 'none';
+        });
 
 
-        // --- DATA LINK ---
+        // --- DATA LINK & LOGIKA STREAMING ---
         const links = {
             rcti: 'https://sindikasi.inews.id/embed/video/YWdlbnQ9ZGVza3RvcCZ1cmw9aHR0cHMlM0ElMkYlMkZlbWJlZC5yY3RpcGx1cy5jb20lMkZsaXZlJTJGcmN0aSUyRmluZXdzaWQmaGVpZ2h0PTEwMCUyNSZ3aWR0aD0xMDAlMjU=',
             gtv: 'https://sindikasi.inews.id/embed/video/YWdlbnQ9ZGVza3RvcCZ1cmw9aHR0cHMlM0ElMkYlMkZlbWJlZC5yY3RpcGx1cy5jb20lMkZsaXZlJTJGZ3R2JTJGaW5ld3NpZCZoZWlnaHQ9MTAwJTI1JndpZHRoPTEwMCUyNQ==',
@@ -310,13 +356,11 @@
             toast.textContent = "Membuka " + id.toUpperCase() + "...";
             toast.classList.add('show');
 
-            // Buka link setelah 300ms
             setTimeout(() => {
                 window.open(links[id], '_blank');
-                // Sembunyikan toast setelah beberapa saat
                 setTimeout(() => toast.classList.remove('show'), 1500);
             }, 300);
         }
     </script>
 </body>
-</html>
+                    </html>
